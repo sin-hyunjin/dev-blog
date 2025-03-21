@@ -2,11 +2,13 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
+import extractToc from "@stefanprobst/rehype-extract-toc";
 import type {
   CategoryCount,
   FrontMatter,
   Post,
   PostListItem,
+  TocEntry,
 } from "@/types/post";
 
 // postsDirectory : 게시글이 저장된 디렉토리 정의
@@ -20,12 +22,29 @@ export async function getPost(slug: string): Promise<Post | null> {
   const fileContents = fs.readFileSync(fullPath, "utf-8");
   // 파일 내용에서 front matter와 콘텐츠 추출
   const { data, content } = matter(fileContents);
+
+  let toc: TocEntry[] = []; // let으로 변경
+
   // 콘텐츠를 MDX 형식으로 직렬화
   const mdxSource = await serialize(content, {
     scope: data as unknown as Record<string, unknown>,
+    mdxOptions: {
+      rehypePlugins: [
+        [
+          extractToc,
+          {
+            headings: ["h1", "h2", "h3"],
+            callback: (tableOfContents: TocEntry[]) => {
+              toc = tableOfContents;
+            },
+          },
+        ],
+      ],
+    },
   });
+
   // slug, front matter, 직렬화된 콘텐츠를 포함한 게시글 데이터 반환
-  return { slug, frontMatter: data as unknown as FrontMatter, mdxSource };
+  return { slug, frontMatter: data as unknown as FrontMatter, mdxSource, toc };
 }
 
 // getAllPosts :  모든 게시글을 게시글 항목 리스트로 가져오는 함수

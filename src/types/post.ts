@@ -12,10 +12,19 @@ export interface FrontMatter {
   // 추가적인 메타데이터 필드들 필요시 추가
 }
 
+export interface TocEntry {
+  id: string;
+  depth: number;
+  value: string;
+  slug: string;
+  children?: TocEntry[];
+}
+
 export interface Post {
   slug: string;
   frontMatter: FrontMatter;
   mdxSource: Source;
+  toc: TocEntry[];
 }
 
 export interface PostListItem {

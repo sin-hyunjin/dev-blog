@@ -30,7 +30,10 @@ export default function NavHeader() {
       // hidden 상태에 따라 y축으로 -100%(완전히 위로 숨김) 또는 0%(원래 위치) 이동
       animate={{ y: hidden ? "-100%" : "0%" }}
       // 애니메이션 지속 시간 0.3초, easeInOut 효과로 부드럽게 전환
-      transition={{ duration: 0.3, ease: "easeInOut" }}
+      transition={{
+        duration: hidden ? 0.2 : 0.8, // 숨길 때는 빠르게, 보여줄 때는 천천히
+        ease: hidden ? "easeIn" : "easeOut", // 숨길 때와 보여줄 때 다른 이징 적용
+      }}
     >
       <div className="p-6 flex justify-between max-w-7xl mx-auto">
         <Link href="/blog" className="text-xl font-bold">
