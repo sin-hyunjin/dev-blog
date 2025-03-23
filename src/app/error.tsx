@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { AppError } from "@/types/error";
-
 export default function Error({
   error,
   reset,

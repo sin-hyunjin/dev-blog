@@ -32,10 +32,15 @@ export interface PostListItem {
   frontMatter: FrontMatter;
 }
 
+interface CategoryData {
+  count: number;
+  posts: PostListItem[];
+}
+
 // 카테고리 집계를 위한 타입
-export interface CategoryCount {
+export interface EnhancedCategoryCount {
   [category: string]: {
-    [subcategory: string]: number;
+    [subcategory: string]: CategoryData;
   };
 }
 

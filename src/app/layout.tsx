@@ -24,16 +24,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased
+          min-h-screen `}
       >
-        <NavHeader />
-        <main className="flex-1 ">{children}</main>
+        <div className="relative z-10">
+          <NavHeader />
 
-        <footer className="text-center text-sm text-gray-500 py-4">
-          &copy; 2025 Your Company. All rights reserved.
-        </footer>
+          <main className="flex-1">{children}</main>
+
+          <footer className="text-center text-sm text-muted-foreground py-4">
+            &copy; 2025 Your Company. All rights reserved.
+          </footer>
+        </div>
       </body>
     </html>
   );

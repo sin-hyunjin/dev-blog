@@ -8,9 +8,6 @@ import rehypePrism from "rehype-prism";
 const nextConfig = {
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   reactStrictMode: true,
-  experimental: {
-    mdxRs: true, // Next.js 15에서 MDX 지원 활성화
-  },
 };
 
 const withMDX = createMDX({

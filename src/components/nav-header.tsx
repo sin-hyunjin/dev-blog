@@ -26,7 +26,7 @@ export default function NavHeader() {
 
   return (
     <motion.header
-      className="sticky top-0 w-full backdrop-blur-sm z-50 "
+      className="sticky top-0 w-full backdrop-blur-xs  z-50 border-dashed border-b border-gray-200 dark:border-gray-700 "
       // hidden 상태에 따라 y축으로 -100%(완전히 위로 숨김) 또는 0%(원래 위치) 이동
       animate={{ y: hidden ? "-100%" : "0%" }}
       // 애니메이션 지속 시간 0.3초, easeInOut 효과로 부드럽게 전환
@@ -35,8 +35,11 @@ export default function NavHeader() {
         ease: hidden ? "easeIn" : "easeOut", // 숨길 때와 보여줄 때 다른 이징 적용
       }}
     >
-      <div className="p-6 flex justify-between max-w-7xl mx-auto">
-        <Link href="/blog" className="text-xl font-bold">
+      <div className="p-6 flex justify-between max-w-7xl mx-auto ">
+        <Link
+          href="/blog"
+          className="text-xl font-bold text-destructive-foreground"
+        >
           Dev Blog
         </Link>
         <ThemeToggle />

@@ -20,7 +20,7 @@ export default async function SubCategoryPage({
             href={`/blog/${post.frontMatter.subcategory?.toLowerCase()}/${
               post.slug
             }`}
-            className="block p-6 bg-white rounded-lg shadow hover:shadow-md transition-shadow"
+            className="block p-6  rounded-lg shadow hover:shadow-md transition-shadow"
           >
             <h2 className="text-xl font-semibold mb-2">
               {post.frontMatter.title}

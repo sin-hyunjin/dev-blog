@@ -4,7 +4,7 @@ import matter from "gray-matter";
 import { serialize } from "next-mdx-remote/serialize";
 import extractToc from "@stefanprobst/rehype-extract-toc";
 import type {
-  CategoryCount,
+  EnhancedCategoryCount,
   FrontMatter,
   Post,
   PostListItem,
@@ -65,31 +65,39 @@ export async function getAllPosts(): Promise<PostListItem[]> {
 }
 
 // 카테고리별 포스트 수를 계산하는 함수 추가
-export async function getCategoryCount(): Promise<CategoryCount> {
+export async function getEnhancedSubCategoryCount(): Promise<EnhancedCategoryCount> {
   const files = fs.readdirSync(postsDirectory);
-  const categoryCount: CategoryCount = {};
+  const categoryData: EnhancedCategoryCount = {};
 
   files.forEach((file) => {
     const fullPath = path.join(postsDirectory, file);
     const { data } = matter(fs.readFileSync(fullPath, "utf-8"));
     const frontMatter = data as unknown as FrontMatter;
+    const slug = file.replace(/\.mdx$/, "");
 
     if (!frontMatter.category || !frontMatter.subcategory) {
       return;
     }
 
-    if (!categoryCount[frontMatter.category]) {
-      categoryCount[frontMatter.category] = {};
+    if (!categoryData[frontMatter.category]) {
+      categoryData[frontMatter.category] = {};
     }
 
-    if (!categoryCount[frontMatter.category][frontMatter.subcategory]) {
-      categoryCount[frontMatter.category][frontMatter.subcategory] = 0;
+    if (!categoryData[frontMatter.category][frontMatter.subcategory]) {
+      categoryData[frontMatter.category][frontMatter.subcategory] = {
+        count: 0,
+        posts: [],
+      };
     }
 
-    categoryCount[frontMatter.category][frontMatter.subcategory]++;
+    categoryData[frontMatter.category][frontMatter.subcategory].count++;
+    categoryData[frontMatter.category][frontMatter.subcategory].posts.push({
+      slug,
+      frontMatter,
+    });
   });
 
-  return categoryCount;
+  return categoryData;
 }
 
 // 특정 카테고리의 포스트를 가져오는 함수 추가
