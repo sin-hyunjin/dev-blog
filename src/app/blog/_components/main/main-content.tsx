@@ -6,7 +6,7 @@ export default function MainContent({
   children: React.ReactNode;
 }) {
   return (
-    <main className="flex-1 px-16 py-6 min-w-2xl max-w-5xl overflow-y-auto ">
+    <main className="flex-1 px-10 py-6   max-w-88rem  overflow-y-auto ">
       <Breadcrumb />
       {children}
     </main>

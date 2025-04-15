@@ -17,14 +17,14 @@ export default function Breadcrumb() {
 
   return (
     <div className="mb-8">
-      <nav className="flex items-center space-x-2 text-sm text-gray-500">
+      <nav className="flex items-center space-x-2 text-sm text-muted-foreground/70">
         {/* Home 링크 항상 표시 */}
         {pathname === "/blog" && (
-          <Link href="/blog" className="hover:text-blue-600 transition-colors">
+          <Link href="/blog" className="hover:text-primary transition-colors">
             Home
           </Link>
         )}
-        <ChevronRightIcon className="h-4 w-4 mx-2 text-gray-400" />
+        <ChevronRightIcon className="h-4 w-4 mx-2 text-muted-foreground" />
 
         {/* 나머지 세그먼트 표시 */}
         {segments.map((segment, index) => {
@@ -34,16 +34,16 @@ export default function Breadcrumb() {
           return (
             <div key={segment} className="flex items-center">
               {index > 0 && (
-                <ChevronRightIcon className="h-4 w-4 mx-2 text-gray-400" />
+                <ChevronRightIcon className="h-4 w-4 mx-2 text-muted-foreground" />
               )}
               {isLast ? (
-                <span className="text-gray-900 font-medium">
+                <span className="text-foreground font-medium">
                   {getBreadcrumbName(segment)}
                 </span>
               ) : (
                 <Link
                   href={path}
-                  className="hover:text-blue-600 transition-colors"
+                  className="hover:text-primary transition-colors"
                 >
                   {getBreadcrumbName(segment)}
                 </Link>

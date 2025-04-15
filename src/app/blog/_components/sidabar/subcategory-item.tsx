@@ -50,25 +50,32 @@ export default function SubcategoryItem({
   };
 
   const handleArrowClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+    e.preventDefault();
     setIsOpen(!isOpen);
   };
 
   return (
     <div className="space-y-1">
-      <div className="flex items-center w-full">
+      <div className="flex items-center w-full group ">
         <button
           onClick={handleCategoryClick}
           className={cn(
             "flex-1 flex items-center py-1.5 px-3 rounded-l-md transition-all",
-            "hover:bg-gray-50 group"
+            "hover:bg-muted/40",
+            isOpen && "bg-muted-foreground/20 text-foreground"
           )}
         >
           <div className="flex items-center space-x-2">
-            <span className="text-sm text-gray-700 transition-colors group-hover:text-blue-600">
+            <span className="text-xs font-bold transition-colors uppercase">
               {subcategory}
             </span>
-            <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full transition-colors group-hover:bg-gray-200">
+            <span
+              className={cn(
+                "text-xs text-background bg-muted px-1.5 py-0.5 rounded-full transition-colors font-semibold",
+                // "group-hover:bg-background/50 group-hover:text-foreground",
+                isOpen && "bg-background/70 text-foreground"
+              )}
+            >
               {count}
             </span>
           </div>
@@ -76,14 +83,19 @@ export default function SubcategoryItem({
         <button
           onClick={handleArrowClick}
           className={cn(
-            "p-1.5 hover:bg-gray-50 rounded-r-md transition-colors",
-            isOpen && "bg-gray-50"
+            "p-2 rounded-r-md transition-all",
+            "hover:bg-muted",
+            isOpen && "bg-muted-foreground/90 text-background"
           )}
         >
           {isOpen ? (
-            <ChevronDown className="h-4 w-4 text-gray-500 transition-colors hover:text-blue-600" />
+            <ChevronDown
+              className={cn("h-4 w-4 transition-colors rounded-md")}
+            />
           ) : (
-            <ChevronRight className="h-4 w-4 text-gray-500 transition-colors hover:text-blue-600" />
+            <ChevronRight
+              className={cn("h-4 w-4 transition-colors rounded-md")}
+            />
           )}
         </button>
       </div>
@@ -105,9 +117,9 @@ export default function SubcategoryItem({
                   className={cn(
                     "block text-xs py-1.5 transition-colors border-l pl-2",
                     isActive
-                      ? "text-blue-600 border-blue-600 bg-blue-50 font-medium"
-                      : "text-gray-600 hover:text-blue-600 border-gray-200",
-                    "hover:bg-gray-50"
+                      ? "text-muted-foreground  bg-muted/10 border-muted/70 font-semibold"
+                      : "text-muted hover:text-muted-foreground border-muted-foreground/10",
+                    "hover:bg-muted/5"
                   )}
                 >
                   {post.frontMatter.title}

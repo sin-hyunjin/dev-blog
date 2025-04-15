@@ -3,7 +3,7 @@ import { getAllPosts } from "@/lib/mdx";
 export default async function BlogList() {
   const posts = await getAllPosts();
   return (
-    <div className="p-6 max-w-3xl mx-auto">
+    <div className=" mx-auto">
       <h1 className="text-2xl font-bold mb-6">📜 블로그 글 목록</h1>
       <ul>
         {posts.map(({ slug, frontMatter }) => (

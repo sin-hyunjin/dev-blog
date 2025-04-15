@@ -1,64 +1,187 @@
 @import "tailwindcss";
 @import "prismjs/themes/prism-okaidia.css";
 @plugin "@tailwindcss/typography";
+@custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
-  --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
-  --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --primary: 221.2 83.2% 53.3%;
-  --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96.1%;
-  --secondary-foreground: 222.2 47.4% 11.2%;
-  --muted: 210 40% 96.1%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 210 40% 96.1%;
-  --accent-foreground: 222.2 47.4% 11.2%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 220, 13%, 91%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
-  --radius: 0.5rem;
-
-  /* 기타 */
-  --max-width: 1100px;
-  --border-radius: 12px;
-  --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-    "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-    "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: 240 10% 4%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 97.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    /* 배경색 및 폰트색 */
+    --background: hsl(0 0% 100%);
+    --foreground: hsl(222.2 84% 4.9%);
+    --color-card: hsl(0 0% 100%);
+    --color-card-foreground: hsl(222.2 84% 4.9%);
+    --color-popover: hsl(0 0% 100%);
+    --color-popover-foreground: hsl(222.2 84% 4.9%);
+    --color-primary: hsl(221.2 83.2% 53.3%);
+    --color-primary-foreground: hsl(210 40% 98%);
+    --color-secondary: hsl(210 40% 96.1%);
+    --color-secondary-foreground: hsl(222.2 47.4% 11.2%);
+
+    /* 네비게이션 및 카테고리 버튼 */
+    --color-muted: hsla(215, 16%, 46%, 0.8);
+    --color-muted-foreground: hsl(217.4 16.3% 36.9%);
+    --color-accent: hsl(210 40% 96.1%);
+    --color-accent-foreground: hsl(222.2 47.4% 11.2%);
+    --color-destructive: hsl(0 84.2% 60.2%);
+    --color-destructive-foreground: hsl(210 40% 98%);
+    --color-border: hsl(220 13% 91%);
+    --color-input: hsl(214.3 31.8% 91.4%);
+    --color-ring: hsl(221.2 83.2% 53.3%);
+
+    --radius: 0.5rem;
+
+    /* 디자인 시스템 */
+    --color-border-dashed: hsl(0 0% 84%);
+
+    --container-8xl: 88rem;
+    /* 기타 */
+    --border-radius: 12px;
+    --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
+      "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
+      "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
+  }
+
+  /* Dark Theme */
+  .dark {
+    /* 배경색 및 폰트색 - 더 깊은 다크 톤으로 변경 */
+    --background: hsl(222 47% 6%);
+    --foreground: hsl(213 31% 91%);
+
+    /* 카드 배경색 및 폰트색 - 살짝 밝은 배경으로 구분감 추가 */
+    --color-card: hsl(222 47% 8%);
+    --color-card-foreground: hsl(213 31% 91%);
+
+    /* 팝오버 배경색 및 폰트색 */
+    --color-popover: hsl(222 47% 8%);
+    --color-popover-foreground: hsl(213 31% 91%);
+
+    /* 포인트 컬러 - 더 선명하고 세련된 파란색 계열로 변경 */
+    --color-primary: hsl(217 91% 60%);
+    --color-primary-foreground: hsl(222 47% 8%);
+
+    /* 보조 색상 - 대비 개선 */
+    --color-secondary: hsl(217 33% 17%);
+    --color-secondary-foreground: hsl(213 31% 91%);
+
+    /* 네비게이션 및 카테고리 버튼 - 더 부드러운 톤으로 조정 */
+    --color-muted: hsl(215 20% 65%);
+    --color-muted-foreground: hsl(215 20% 80%);
+
+    /* 액센트 색상 - 더 미묘한 차이로 조정 */
+    --color-accent: hsl(217 33% 20%);
+    --color-accent-foreground: hsl(213 31% 91%);
+
+    /* 경고/에러 색상 - 더 세련된 레드 톤으로 변경 */
+    --color-destructive: hsl(0 63% 31%);
+    --color-destructive-foreground: hsl(213 31% 91%);
+
+    /* 테두리 색상 - 더 미묘한 구분선을 위해 조정 */
+    --color-border: hsl(217 33% 15%);
+    --color-input: hsl(217 33% 15%);
+
+    /* 강조 색상 */
+    --color-ring: hsl(217 91% 60%);
+
+    /* 디자인 시스템 - 대시 보더 색상 미세 조정 */
+    --color-border-dashed: hsl(217 33% 18%);
+  }
+
+  /* Ocean Theme */
+  .ocean {
+    /* 배경색 및 폰트색 */
+    --background: hsl(204 100% 97%);
+    --foreground: hsl(218 22% 20%);
+
+    /* 카드 배경색 및 폰트색 */
+    --color-card: hsl(204 100% 97%);
+    --color-card-foreground: hsl(218 22% 20%);
+
+    /* 팝오버 배경색 및 폰트색 */
+    --color-popover: hsl(204 100% 97%);
+    --color-popover-foreground: hsl(218 22% 20%);
+    --color-primary: hsl(196 100% 45%);
+    --color-primary-foreground: hsl(210 40% 98%);
+    --color-secondary: hsl(187 48% 85%);
+    --color-secondary-foreground: hsl(218 22% 20%);
+
+    /* 네비게이션 및 카테고리 버튼 */
+    --color-muted: hsl(215 30% 65%);
+    --color-muted-foreground: hsl(215 20% 50%);
+    --color-accent: hsl(186 70% 80%);
+    --color-accent-foreground: hsl(218 22% 20%);
+    --color-destructive: hsl(0 84.2% 60.2%);
+    --color-destructive-foreground: hsl(210 40% 98%);
+    --color-border: hsl(204 40% 85%);
+    --color-input: hsl(204 40% 85%);
+    --color-ring: hsl(196 100% 45%);
+    --color-border-dashed: hsl(204 40% 75%);
+  }
+
+  /* Forest Theme */
+  .forest {
+    /* 배경색 및 폰트색 */
+    --background: hsl(120 20% 95%);
+    --foreground: hsl(120 20% 10%);
+
+    /* 카드 배경색 및 폰트색 */
+    --color-card: hsl(120 20% 95%);
+    --color-card-foreground: hsl(120 20% 10%);
+
+    /* 팝오버 배경색 및 폰트색 */
+    --color-popover: hsl(120 20% 95%);
+    --color-popover-foreground: hsl(120 20% 10%);
+    --color-primary: hsl(142 71% 45%);
+    --color-primary-foreground: hsl(120 20% 95%);
+    --color-secondary: hsl(98 36% 80%);
+    --color-secondary-foreground: hsl(120 20% 10%);
+
+    /* 네비게이션 및 카테고리 버튼 */
+    --color-muted: hsl(100 10% 50%);
+    --color-muted-foreground: hsl(120 20% 30%);
+
+    --color-accent: hsl(100 40% 75%);
+    --color-accent-foreground: hsl(120 20% 10%);
+    --color-destructive: hsl(0 70% 35%);
+    --color-destructive-foreground: hsl(120 20% 95%);
+    --color-border: hsl(100 20% 80%);
+    --color-input: hsl(100 20% 80%);
+    --color-ring: hsl(142 71% 45%);
+    --color-border-dashed: hsl(100 20% 65%);
   }
 }
 
-body {
-  background: hsl(var(--background));
-  color: hsl(var(--foreground));
-  border-color: hsl(var(--border));
-  font-family: Arial, Helvetica, sans-serif;
+@theme {
+  --container-88rem: 88rem;
+  --container-100rem: 100rem;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-border: var(--color-border);
+  --color-border-dashed: var(--color-border-dashed);
+  --color-card: var(--color-card);
+  --color-card-foreground: var(--color-card-foreground);
+  --color-popover: var(--color-popover);
+  --color-popover-foreground: var(--color-popover-foreground);
+  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-accent: var(--color-accent);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-destructive: var(--color-destructive);
+  --color-destructive-foreground: var(--color-destructive-foreground);
+}
+
+@layer base {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    border-color: var(--color-border-dashed);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}
+
+@layer utilities {
+  .perspective-1000 {
+    perspective: 1000px;
+  }
 }

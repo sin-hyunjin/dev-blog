@@ -2,7 +2,7 @@ import { getPost } from "@/lib/mdx";
 import { notFound } from "next/navigation";
 import { getAllPosts } from "@/lib/mdx";
 import MDXRenderer from "@/components/mdx-renderer";
-import MDXThemeToggle from "@/components/theme-toggle";
+import { ThemeToggleColor } from "@/components/theme-toggle";
 export async function generateStaticParams() {
   const posts = await getAllPosts();
   return posts.map(({ slug }) => ({ slug }));
@@ -19,14 +19,13 @@ export default async function BlogPost({
   if (!post) return notFound();
 
   const components = {
-    ThemeToggle: MDXThemeToggle,
+    ThemeToggle: ThemeToggleColor,
   };
 
   return (
-    <article className="prose dark:prose-invert max-w-3xl mx-auto p-6 ">
+    <article className="prose dark:prose-invert  mx-auto p-6 max-w-88rem ">
       <h1>{post.frontMatter.title}</h1>
       <div>{post.frontMatter.date}</div>
-
       <MDXRenderer source={post.mdxSource} components={components} />
     </article>
   );
